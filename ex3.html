@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab5 - Exercise 1</title>
+</head>
+<body>
+	<input type="text" id="textInput" placeholder="Enter a user number (1-30)"/>
+	<label id="textLabel"></label>
+	<button id="redButton">Red</button>
+	<button id="blueButton">Blue</button>
+	<button id="greenButton">Green</button>
+	<button id="orangeButton">Orange</button>
+	<button id="purpleButton">Purple</button>
+</body>
+<script type="text/javascript">
+	<!-- Your JavaScript code will go here -->
+	
+	async function retreiveData() {
+	try {
+	const response = await fetch("https://67c1fad361d8935867e4f123.mockapi.io/users_api");
+	Data = await response.json();
+	// Process the retreived data
+	console.log('Retrieved Data:', data);
+	} catch (error) {
+	// Handle errors
+	console.error('Error fetching data:', error);
+	}
+	
+	
+	
+}
+	
+	const input = document.getElementById("textInput");
+	const label = document.getElementById("textLabel");
+	
+	var Data;
+	
+	input.addEventListener("keypress", async function(event) {
+		if(event.key === "Enter") {
+		
+			let text = input.value;
+			
+			input.value = "";
+			
+			label.textContent = text;
+			
+			//When enter key is pressed retireve data function
+			await retreiveData();
+			console.log(Data);
+			let output = null;
+			
+			for(let i = 0; i < Data.length; i++){
+				
+				if(Data[i].id == text) {
+					output = "ID: " + Data[i].id + ", Name: " + Data[i].first_name + ", Group: " + Data[i].user_group;
+				}				
+			}
+			
+			if (output == null) {
+				label.textContent = "No users were found with the provided User_ID";
+			
+			}
+			
+			else {
+				label.textContent = output;
+			}
+			
+			
+			
+		}
+	
+	
+	});
+	
+	//Selecting an element
+	const red_button = document.getElementById('redButton');
+	const blue_button = document.getElementById('blueButton')
+	const green_button = document.getElementById('greenButton')
+	const orange_button = document.getElementById('orangeButton')
+	const purple_button = document.getElementById('purpleButton')
+	
+	// Adding a click event lister
+	red_button.addEventListener('click', () => {
+		label.style.color = "red";
+		
+	});
+
+	blue_button.addEventListener('click', () => {
+		label.style.color = "blue";
+		
+	});
+	
+	green_button.addEventListener('click', () => {
+		label.style.color = "green";
+		
+	});
+	
+	orange_button.addEventListener('click', () => {
+		label.style.color = "orange";
+		
+	});
+	
+	purple_button.addEventListener('click', () => {
+		label.style.color = "purple";
+		
+	})
+
+
+
+</script>
+</html>
